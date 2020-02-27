@@ -1,0 +1,86 @@
+﻿@using Macrocosm.Tool
+@model ResultModel
+@{
+    ViewData["Title"] = "ActionLogs";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<ol class="breadcrumb pl-0">
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">home</i> Home
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">library_books</i> 工作台
+        </a>
+    </li>
+    <li class="active">
+        <i class="material-icons">archive</i> 网站日志
+    </li>
+</ol>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header">
+                <h2>日志数据</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="@Url.Action("ActionLogs","system")" class="waves-effect waves-block">刷新</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>请求地址</th>
+                                <th>请求时间</th>
+                                <th>请求IP（独立）</th>
+                                <th>结果</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var key in (Model.Data as List<Action_logs>))
+                            {
+                            <tr>
+                                <td>@key.Id</td>
+                                <td>@key.Path</td>
+                                <td>@Convert.ToInt32(key.DateLine).UnixToLacalTime().ToString()</td>
+                                <td>@key.ClientIP</td>
+                                <td><span class="label @(key.Status == 1 ? "bg-green":"bg-red")">@(key.Status == 1 ? "正常" : "不通过")</span></td>
+                                <td>
+                                    <a href="@Url.Action("DeleteLogs","system",new { id = key.Id,page = Model.PageSize})" class="btn bg-pink btn-block btn-xs waves-effect">
+                                        <i class="material-icons">warning</i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous ">
+                            <a href="@Url.Action("ActionLogs","system",new {page = Model.PageSize - 1 })" @(Model.PageSize <= 1 ? "style=pointer-events:none;" : "") class="waves-effect"><span aria-hidden="true">←</span> Older</a>
+                        </li>
+                        <li class="next">
+                            <a href="@Url.Action("ActionLogs","system",new {page = Model.PageSize + 1 })" @(Model.Count < Model.PageSize ? "style=pointer-events:none;" : "") class="waves-effect">Newer <span aria-hidden="true">→</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

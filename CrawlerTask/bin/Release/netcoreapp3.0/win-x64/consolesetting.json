@@ -1,0 +1,13 @@
+{
+  "Default": {
+    "RootUrl": "https://www.ygdy8.net/"
+  },
+  "MySQL": { // ˝æ›ø‚≈‰÷√
+    "Server": "localhost",
+    "UserId": "root",
+    "PassWord": "123",
+    "Port": 3306,
+    "DataBase": "crawler",
+    "SslMode": "none"
+  }
+}

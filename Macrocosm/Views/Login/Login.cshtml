@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sign Up | Macrocosm电影库</title>
+    <link rel="icon" href="~/Admin/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="~/Admin/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Admin/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="~/Admin/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="~/Admin/css/style.css" rel="stylesheet">
+    <style>
+        .bootstrap-notify-container{
+            min-width:270px;
+        }
+    </style>
+</head>
+<body class="signup-page" style="background-color:#ddd">
+    <div class="signup-box">
+        <div class="card">
+            <div class="body">
+                <form id="sign_up">
+                    <div class="msg"><h3>登录到Macrocosm</h3></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="username" placeholder="User Name" required autofocus>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" minlength="3" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-blue">
+                        <label for="terms">保持您的身份7天内处于登录状态</label>
+                    </div>
+                    <button class="btn btn-block btn-lg bg-blue waves-effect submit" type="button">SIGN UP</button>
+                    <div class="m-t-25 m-b--5 align-center">
+                        <a href="mailto:acesalvatore@outlook.com" class="font-bold col-teal">没有账号?点此联系管理员</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery Core Js -->
+    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="~/Admin/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    <script src="~/Admin/plugins/node-waves/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <script src="~/Admin/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="~/Admin/plugins/jquery-validation/localization/messages_zh.js"></script>
+    <!-- Custom Js -->
+    <script src="~/Admin/js/admin.js"></script>
+    <script src="~/Admin/js/pages/examples/sign-up.js"></script>
+</body>
+</html>

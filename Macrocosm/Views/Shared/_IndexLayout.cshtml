@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Macrocosm电影库</title>
+    <link rel="icon" href="~/TextTemplate.ico" type="image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/fontawesome-free-5.11.2-web/css/all.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="~/js/jquery.copy-to-clipboard.js" asp-append-version="true"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 pt-0 pb-0">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="List">
+                    <img src="~/jusibe-logo.png" class="logo-img mr-2" /> <span>Macrocosm</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex font-sm" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                    <form class="form-inline my-2 my-lg-0 form-search">
+                        <input style="display:none" type="text">
+                        <input class="form-control form-control-sm mr-sm-2 input-search" style="width:300px;" @(ViewData["Title"].ToString() !="数据矩阵" ? "disabled":"") type="search" placeholder="搜索从这里开始..." aria-label="Search">
+                        <i class="fas fa-search i-s"></i>
+                    </form>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="邮箱：acesalvatore@outlook.com">
+                        <a href="mailto:acesalvatore@outlook.com" class="nav-link">联系</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("About","home")" class="nav-link">关于</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("index","system")" class="nav-link text-danger">数据统计</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><i class="far fa-angry"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <div class="top" data-toggle="tooltip" data-placement="top" title="返回顶部">
+        <button class="btn btn-outline-primary btn-block focus" type="button"><i class="fas fa-chevron-up"></i></button>
+    </div>
+    @* 吐司 *@
+    <div class="shadow toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="4000" style="position: fixed;bottom:2em;right:2em;display:none">
+        <div role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-reply-all"></i>
+                <strong class="mr-auto ml-2">系统消息</strong>
+                <small>@DateTime.Now.ToLocalTime()</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+
+            </div>
+        </div>
+    </div>
+    <footer class="border-top footer text-muted">
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+<script>
+    $(function () {
+        $(document).tooltip({
+            selector: '[data-toggle="tooltip"]'
+        });
+    });
+    // 显示吐司 common
+    // text-danger | text-success | text-secondary | text-warning
+    function showtoast(rank, message) {
+        toastdoc = $('.toast');
+        tbody = $('.toast .toast-body');
+        tbody.addClass(rank);
+        tbody.text(message);
+        toastdoc.toast('show');
+    };
+    function imgerrorfun() {
+        var img = event.srcElement;
+        img.src = "errorimage.png";
+        img.onerror = null;
+    }
+</script>

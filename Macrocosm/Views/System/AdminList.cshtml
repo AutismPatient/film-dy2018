@@ -1,0 +1,311 @@
+﻿@using Macrocosm.Tool
+@model ResultModel
+@{
+    ViewData["Title"] = "AdminList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<ol class="breadcrumb pl-0">
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">home</i> Home
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">library_books</i> 工作台
+        </a>
+    </li>
+    <li class="active">
+        <i class="material-icons">archive</i> 管理员
+    </li>
+</ol>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header">
+                <h2>管理员数据</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li>
+                        <button type="button" id="add-admin" style="margin-top: -12px;" class="btn btn-primary waves-effect">添加管理员</button>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="@Url.Action("AdminList","system")" class=" waves-effect waves-block">刷新</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>昵称</th>
+                                <th>登录用户名</th>
+                                <th>上次登录时间</th>
+                                <th>注册时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in (Model.Data as List<System_User>))
+                            {
+                                <tr>
+                                    <td>@user.Id</td>
+                                    <td>@user.NickName</td>
+                                    <td>@user.UserName</td>
+                                    <td>@TimeHelper.UnixToLacalTime(Convert.ToInt32(user.LastTime)).ToString()</td>
+                                    <td>@TimeHelper.UnixToLacalTime(Convert.ToInt32(user.Register)).ToString()</td>
+                                    <td><span class="label @(user.IsPass == 1 ? "bg-green":"bg-red")">@(user.IsPass == 1 ? "正常" : "封禁")</span></td>
+                                    @if (user.UserGrade != 2)
+                                    {
+                                        <td>
+                                            @if (user.IsPass == 1)
+                                            {
+                                                <button type="button" data-id="@user.Id" class="btn bg-pink btn-block btn-xs waves-effect banned">
+                                                    封禁
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" data-id="@user.Id" class="btn btn-success btn-block btn-xs waves-effect unbanned">
+                                                    解封
+                                                </button>
+                                            }
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>- - -</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous ">
+                            <a href="@Url.Action("AdminList","system",new {page = Model.Count - 1 })" @(Model.Count <= 1 ? "style=pointer-events:none;" : "") class="waves-effect"><span aria-hidden="true">←</span> Older</a>
+                        </li>
+                        <li class="next">
+                            <a href="@Url.Action("AdminList","system",new {page = Model.Count + 1 })" @(Model.Count <= Model.PageSize ? "style=pointer-events:none;" : "") class="waves-effect">Newer <span aria-hidden="true">→</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="AddAdminModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">请填写信息</h4>
+            </div>
+            <form id="addForm" method="post" onsubmit="return false">
+                <input type="hidden" name="adminId" value="" />
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="UserName" class="form-control" placeholder="登录用户名" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Nick" class="form-control" placeholder="昵称" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="password" name="PassWord" class="form-control" placeholder="密码" minlength="6" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="password" class="form-control" name="confirm" placeholder="确认密码" minlength="6" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line disabled">
+                                    <input type="text" class="form-control" value="普通管理员" placeholder="级别" disabled="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <input type="number" class="form-control" name="Age" min="18" required="" aria-required="true">
+                                    <label class="form-label">年龄</label>
+                                </div>
+                                <div class="help-info">Numbers only</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="checkbox" id="checkbox" name="checkbox" required="">
+                                <label for="checkbox">我已阅读并接受条款</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary waves-effect">保存更改</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var id = getCookie("MemberId");
+        var button = $("#add-admin");
+        if (id == "" || id == undefined) {
+            button.attr("disabled", "disabled");
+        }
+        $('#AddAdminModal').on('show.bs.modal', function () {
+            var modal = $(this);
+            modal.find('.modal-content input[type=hidden]').val(id);
+        });
+        var form = $('#addForm');
+        form.validate({
+            rules: {
+                checkbox: {
+                    required: true
+                },
+                confirm: {
+                    equalTo: '[name="PassWord"]'
+                }
+            },
+            highlight: function (input) {
+                $(input).parents('.form-line').addClass('error');
+            },
+            unhighlight: function (input) {
+                $(input).parents('.form-line').removeClass('error');
+            },
+            errorPlacement: function (error, element) {
+                $(element).parents('.input-group').append(error);
+                $(element).parents('.form-group').append(error);
+            }
+        });
+        form.find("button[type=submit]").click(function () {
+            if (!form.valid()) {
+                return;
+            }
+            var button = $(this);
+            $.ajax({
+                async: true,
+                url: "/system/AddAdmin",
+                data: form.serialize(),
+                type: "post",
+                dataType: 'json',
+                beforeSend: function () {
+                    button.text("Loading");
+                    button.attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                        setTimeout(function () { $("#AddAdminModal").modal("hide"); }, 1500);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+            button.removeAttr("disabled");
+            button.text("保存更改");
+        });
+        $(".banned").click(function () {
+            if (!form.valid()) {
+                return;
+            }
+            var val = $(this).data("id");
+            $.ajax({
+                async: true,
+                url: "/system/Banned",
+                data: {
+                    userId: val,
+                    adminId: id,
+                },
+                type: "post",
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                        setTimeout(function () { window.location.reload(true); }, 1000);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+        });
+        $(".unbanned").click(function () {
+            if (!form.valid()) {
+                return;
+            }
+            var val = $(this).data("id");
+            $.ajax({
+                async: true,
+                url: "/system/UnBanned",
+                data: {
+                    userId: val,
+                    adminId: id,
+                },
+                type: "post",
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                        setTimeout(function () { window.location.reload(true); }, 1000);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+        });
+    })
+    function getCookie(name) {
+        var strcookie = document.cookie;//获取cookie字符串
+        var arrcookie = strcookie.split("; ");//分割
+        //遍历匹配
+        for (var i = 0; i < arrcookie.length; i++) {
+            var arr = arrcookie[i].split("=");
+            if (arr[0] == name) {
+                return arr[1];
+            }
+        }
+        return "";
+    }
+    $("#add-admin").click(function () {
+        $("#AddAdminModal").modal("show");
+    });
+</script>

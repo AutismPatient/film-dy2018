@@ -1,0 +1,550 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Macrocosm 管理 - Material Design</title>
+    <!-- Favicon-->
+    <link rel="icon" href="~/Admin/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="~/Admin/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="~/Admin/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="~/Admin/plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- JQuery DataTable Css -->
+    <link href="~/Admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- noUISlider Css -->
+    <link href="~/Admin/plugins/nouislider/nouislider.min.css" rel="stylesheet" />
+    <!-- Wait Me Css -->
+    <link href="~/Admin/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <!-- Bootstrap Select Css -->
+    <link href="~/Admin/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="~/Admin/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="~/Admin/css/themes/all-themes.css" rel="stylesheet" />
+    <!-- Jquery Core Js -->
+    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core Js -->
+    <script src="~/Admin/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="~/js/layout_admin.js" type="text/javascript"></script>
+    <!-- Slimscroll Plugin Js -->
+    <script src="~/Admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- Validation Plugin Js -->
+
+    <script src="~/Admin/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="~/Admin/plugins/jquery-validation/localization/messages_zh.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="~/Admin/plugins/node-waves/waves.js"></script>
+    <!-- Bootstrap Colorpicker Js -->
+    <script src="~/Admin/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="~/Admin/plugins/dropzone/dropzone.js"></script>
+    <!-- Demo Js -->
+    <script src="~/Admin/js/demo.js"></script>
+</head>
+
+<body class="theme-red">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader pl-size-xs">
+                <div class="spinner-layer pl-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p> Loading ....</p>
+        </div>
+    </div>
+    <div class="overlay"></div>
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="开始搜索...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="javascript:void(0)">Macrocosm 电影库</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Call Search -->
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <!-- #END# Call Search -->
+                    <!-- Notifications -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">notifications</i>
+                            <span class="label-count">7</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">NOTIFICATIONS</li>
+                            <li class="body">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>12 new members joined</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 14 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 sales made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-red">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy Doe</b> deleted account</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-blue-grey">
+                                                <i class="material-icons">comment</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> commented your post</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 4 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Notifications -->
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="~/Admin/images/user.png" width="48" height="48" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</div>
+                    <div class="email">john.doe@example.com</div>
+                    <div class="btn-group user-helper-dropdown">
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="" id="update-password"><i class="material-icons">shopping_cart</i>修改密码</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="@Url.Action("Logout","system")" id="logout"><i class="material-icons">input</i>注销登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">菜单主导航</li>
+                    <li>
+                        <a href="@Url.Action("index","system")" data-url="index">
+                            <i class="material-icons">home</i>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AdminList","system")" data-url="AdminList">
+                            <i class="material-icons">text_fields</i>
+                            <span>用户管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("RedisList","system")" data-url="RedisList">
+                            <i class="material-icons">layers</i>
+                            <span>Redis 缓存</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ActionLogs","system")" data-url="ActionLogs">
+                            <i class="material-icons">assignment</i>
+                            <span>网站日志</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>采集任务</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="@Url.Action("Settings","system")" data-url="Settings">常用设置</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2019 - 2020 <a href="javascript:void(0);">Macrocosm - 管理</a>.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 1.0.0
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">主题颜色</a></li>
+                <li role="presentation"><a href="#settings" data-toggle="tab">系统设置</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+                    <ul class="demo-choose-skin">
+                        <li data-theme="red" class="active">
+                            <div class="red"></div>
+                            <span>Red</span>
+                        </li>
+                        <li data-theme="pink">
+                            <div class="pink"></div>
+                            <span>Pink</span>
+                        </li>
+                        <li data-theme="purple">
+                            <div class="purple"></div>
+                            <span>Purple</span>
+                        </li>
+                        <li data-theme="deep-purple">
+                            <div class="deep-purple"></div>
+                            <span>Deep Purple</span>
+                        </li>
+                        <li data-theme="indigo">
+                            <div class="indigo"></div>
+                            <span>Indigo</span>
+                        </li>
+                        <li data-theme="blue">
+                            <div class="blue"></div>
+                            <span>Blue</span>
+                        </li>
+                        <li data-theme="light-blue">
+                            <div class="light-blue"></div>
+                            <span>Light Blue</span>
+                        </li>
+                        <li data-theme="cyan">
+                            <div class="cyan"></div>
+                            <span>Cyan</span>
+                        </li>
+                        <li data-theme="teal">
+                            <div class="teal"></div>
+                            <span>Teal</span>
+                        </li>
+                        <li data-theme="green">
+                            <div class="green"></div>
+                            <span>Green</span>
+                        </li>
+                        <li data-theme="light-green">
+                            <div class="light-green"></div>
+                            <span>Light Green</span>
+                        </li>
+                        <li data-theme="lime">
+                            <div class="lime"></div>
+                            <span>Lime</span>
+                        </li>
+                        <li data-theme="yellow">
+                            <div class="yellow"></div>
+                            <span>Yellow</span>
+                        </li>
+                        <li data-theme="amber">
+                            <div class="amber"></div>
+                            <span>Amber</span>
+                        </li>
+                        <li data-theme="orange">
+                            <div class="orange"></div>
+                            <span>Orange</span>
+                        </li>
+                        <li data-theme="deep-orange">
+                            <div class="deep-orange"></div>
+                            <span>Deep Orange</span>
+                        </li>
+                        <li data-theme="brown">
+                            <div class="brown"></div>
+                            <span>Brown</span>
+                        </li>
+                        <li data-theme="grey">
+                            <div class="grey"></div>
+                            <span>Grey</span>
+                        </li>
+                        <li data-theme="blue-grey">
+                            <div class="blue-grey"></div>
+                            <span>Blue Grey</span>
+                        </li>
+                        <li data-theme="black">
+                            <div class="black"></div>
+                            <span>Black</span>
+                        </li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+                    <div class="text-center">
+                        <label><b>暂无设置</b></label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- #END# Right Sidebar -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </section>
+    <div class="modal fade" id="updatePassModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">请填写信息</h4>
+                </div>
+                <form id="updatepassform" method="post" onsubmit="return false">
+                    <input type="hidden" name="id" value="" />
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" name="password" placeholder="密码" minlength="6" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="password" class="form-control" name="confirm" placeholder="确认密码" minlength="6" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary waves-effect submit">保存更改</button>
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        $(".menu ul.list a").each(function () {
+            var url = $(this).attr("data-url");
+            var title = "@ViewData["Title"].ToString()";
+            if (url == title) {
+                var par = $(this).parents(".ml-menu");
+                if (par.html() !== undefined) {
+                    par.show();
+                }
+                $(this).parent("li").addClass("active");
+            }
+        });
+        $('#updatePassModal').on('show.bs.modal', function (event) {
+            var recipient = $("#update-password").data('id');
+            console.log(recipient);
+            var modal = $(this);
+            modal.find('.modal-content input[type=hidden]').val(recipient);
+        })
+        var form = $('#updatepassform');
+        form.validate({
+            rules: {
+                confirm: {
+                    equalTo: '[name="password"]'
+                }
+            },
+            highlight: function (input) {
+                $(input).parents('.form-line').addClass('error');
+            },
+            unhighlight: function (input) {
+                $(input).parents('.form-line').removeClass('error');
+            },
+            errorPlacement: function (error, element) {
+                $(element).parents('.input-group').append(error);
+                $(element).parents('.form-group').append(error);
+            }
+        });
+        form.find("button[type=submit]").click(function (e) {
+            if (!form.valid()) {
+                return;
+            }
+            var button = $(this);
+            $.ajax({
+                async: true,
+                url: "/system/ChangePassWord",
+                data: form.serialize(),
+                type: "post",
+                dataType: 'json',
+                beforeSend: function () {
+                    button.text("Loading");
+                    button.attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                        setTimeout(function () { window.location.href = "/login/login"; }, 1000);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+            button.removeAttr("disabled");
+            button.text("保存更改");
+        })
+    });
+    $(".info-container").on("click","#update-password",function () {
+       $("#updatePassModal").modal("show");
+    });
+    function nof(color, text) {
+    $.notify({
+        message: text
+    },
+        {
+            type: color,
+            allow_dismiss: true,
+            newest_on_top: true,
+            z_index:1051,
+            timer: 500,
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            animate: {
+                enter: "animated fadeInDown",
+                exit: "animated fadeOutUp"
+            },
+            template: '<div data-notify="container" class="bootstrap-notify-container alert alert-dismissible {0} ' + "p-r-35" + '" role="alert">' +
+                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                '<span data-notify="icon"></span> ' +
+                '<span data-notify="title">{1}</span> ' +
+                '<span data-notify="message">{2}</span>' +
+                '<div class="progress" data-notify="progressbar">' +
+                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                '</div>' +
+                '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                '</div>'
+        });
+}
+</script>
+
+<script src="~/Admin/js/admin.js"></script>

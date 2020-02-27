@@ -1,0 +1,221 @@
+﻿@using Macrocosm.Tool
+@model List<System_Config>
+@{
+    ViewData["Title"] = "Settings";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<ol class="breadcrumb pl-0">
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">home</i> Home
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">library_books</i> 工作台
+        </a>
+    </li>
+    <li class="active">
+        <i class="material-icons">archive</i> 设置
+    </li>
+</ol>
+<div class="card">
+    <div class="header">
+        <h2>爬虫任务常用设置 <small>*添加完配置需要加代码以实现*</small></h2>
+        <ul class="header-dropdown m-r--5">
+            <li>
+                <button type="button" id="add-config" style="margin-top: -12px;" class="btn btn-success waves-effect" data-toggle="modal" data-target="#SettingsModal">添加配置</button>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">more_vert</i>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="@Url.Action("Settings","system")" class=" waves-effect waves-block">刷新</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="body">
+        <div class="row clearfix">
+            @foreach (var m in Model)
+            {
+                <div class="col-md-6">
+                    <b class="text-trun" title="@m.Desc">@m.Desc</b>
+                    @switch (m.DataType)
+                    {
+                        case "string":
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" data-id="@m.Id" value="@m.Value">
+                                </div>
+                            </div>
+                            break;
+                        case "int":
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" class="form-control" data-id="@m.Id" value="@m.Value">
+                                </div>
+                            </div>
+                            break;
+                        case "bool":
+                            <div class="switch" style="padding-top:15px;">
+                                <label>关<input type="checkbox" @(m.Value == "true" ? "checked" : "") data-id="@m.Id"><span class="lever switch-col-green"></span>开</label>
+                            </div>
+                            break;
+                        default:
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" data-id="@m.Id" value="@m.Value">
+                                </div>
+                            </div>
+                            break;
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SettingsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">请填写信息</h4>
+            </div>
+            <form id="settingsForm" method="post" onsubmit="return false">
+                <input type="hidden" name="adminId" value="" />
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Key" class="form-control" placeholder="配置键值" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Value" class="form-control" placeholder="值" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="Desc" class="form-control" placeholder="描述" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p>
+                                <b>数据类型:</b>
+                            </p>
+                            <div class="form-group">
+                                <select class="form-control" style="border-bottom: 1px solid #ddd;" name="DataType">
+                                    <option value="int">int</option>
+                                    <option value="bool">bool</option>
+                                    <option value="string">string</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary waves-effect">保存更改</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var form = $('#settingsForm');
+        form.validate({
+            highlight: function (input) {
+                $(input).parents('.form-line').addClass('error');
+            },
+            unhighlight: function (input) {
+                $(input).parents('.form-line').removeClass('error');
+            },
+            errorPlacement: function (error, element) {
+                $(element).parents('.input-group').append(error);
+                $(element).parents('.form-group').append(error);
+            }
+        });
+        form.find("button[type=submit]").click(function (e) {
+            if (!form.valid()) {
+                return;
+            }
+            var button = $(this);
+            $.ajax({
+                async: true,
+                url: "/system/AddConfig",
+                data: form.serialize(),
+                type: "post",
+                dataType: 'json',
+                beforeSend: function () {
+                    button.text("Loading");
+                    button.attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                        setTimeout(function () { $("#SettingsModal").modal("hide"); window.location.reload(true); }, 1500);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+            button.removeAttr("disabled");
+            button.text("保存更改");
+        });
+        // 更改
+        $(".card .body").find("input").change(function (e) {
+            var id = $(this).data("id");
+            var val = $(this).val();
+            var type = $(this).attr("type");
+            if (type === "checkbox") { // 复选框
+                if ($(this).is(":checked")) {
+                    val = "true";
+                } else {
+                    val = "false";
+                }
+            }
+            edit(id, val,$(this));
+        });
+        function edit(id, val, e) {
+            var button = e;
+            $.ajax({
+                async: true,
+                url: "/system/EditConfig",
+                data: {
+                    id: id,
+                    val: val,
+                },
+                type: "post",
+                dataType: 'json',
+                beforeSend: function () {
+                    button.attr("disabled", "disabled");
+                },
+                success: function (data) {
+                    if (data.status_code === 200) {
+                        nof("alert-success", data.msg);
+                    } else {
+                        nof("alert-danger", data.msg);
+                    }
+                },
+                timeout: 10000,
+                error: function (data) {
+                    nof("alert-danger", "request error.");
+                }
+            });
+            button.removeAttr("disabled");
+        }
+    })
+</script>

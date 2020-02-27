@@ -1,0 +1,369 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+a.navbar-brand span{
+    vertical-align: middle;
+    font-family: -webkit-pictograph!important;
+}
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+body{
+    background-color:rgb(248, 248, 248);
+    font-family:Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !important;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+button:focus{
+    outline:none;
+}
+a:hover{
+    text-decoration:none;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+/*自定义*/
+.logo-img{
+    height:40px;
+}
+input,a,button{
+    border-radius:0!important;
+}
+.navbar-light .navbar-nav .nav-link { font-size: .9rem; }
+.navbar-light .navbar-nav .nav-link:hover{
+    background-color:#f8f8f8;
+    transition:all .4s;
+}
+.form-search{
+    position:relative;
+}
+.input-search { padding-left: 30px; }
+.i-s {
+    position:absolute;
+    left:8px;
+    color:#bdbdbd;
+}
+.input-search:focus { width: 400px; }
+
+.font-sm li {
+    line-height:2;
+}
+h4{
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:2px;
+}
+.conent p,.conent a,header{
+    font-size:.9rem;
+    color:#808080;
+    letter-spacing:2px;
+}
+ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.cat ul li {
+    padding:8px;
+    text-align:center;
+    border-radius:4px;
+}
+.cat ul li a{
+    width:100%;
+    display:block;
+    font-size:.9rem;
+    transition:all .5s;
+}
+.cat .add{
+    background-color:#e6e6e6;
+}
+.cat .add a,.cat ul li a:hover{
+    color:#0148dc;
+    font-weight:bolder;
+    -webkit-transition: all .5s; /* Safari 和 Chrome */
+}
+.tag li {
+    text-align:center;
+    float:left;
+    margin-left:.45rem;
+    margin-bottom:.4rem;
+}
+.tag li a{
+    display:block;
+    background-color:#e6e6e6;
+    border-radius:4px!important;
+    
+    padding:4px 6px;
+    transition:all .3s ease-out;
+    
+    font-size:.8rem;
+}
+.tag li a:hover,.tag .active a{
+    background-color: #0148dc;
+    color: white;
+    transition:all .3s ease-in;
+}
+.tag li:first-letter{
+    margin-left:0;
+}
+.list header { line-height: 1; }
+.list header span {
+    font-size:1.1rem;
+    margin-left:6px;
+    cursor:pointer;
+    text-align:center;
+}
+.list .card{
+    border:none;
+    padding:8px;
+    margin-bottom:20px;
+    transition:all .5s;
+}
+.list .card a{
+    display:block;
+}
+.list .card a:hover .card-title{
+    color:#0148dc;
+}
+.list .card:hover{
+    box-shadow: 0 .6rem 2rem rgba(0,0,0,.175)!important;
+    transition:all .5s;
+}
+.list .card .card-body{
+    padding:.6rem;
+}
+.list .card-title{
+    font-size:.8rem;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    margin-bottom:4px;
+}
+.p-info span{
+    letter-spacing:normal;
+    font-size:.8rem;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width:47%;
+    display:inline-block;
+}
+.screen hr {
+    margin-top:.8rem;
+}
+.loading{
+    margin:0 auto;
+    padding:8px;
+    background-color:white;
+    border-radius:.25rem;
+    margin-top:15em;
+    display:none;
+    width: 130px;
+}
+.toast{
+    background-color:none;
+    border:none;
+    min-width:300px;
+    z-index:9999;
+}
+.card-img-top{
+    height:350px;
+}
+.page .btn-group-sm  .btn, .content .btn-sm {
+    font-size:.8rem;
+    padding: .1rem .5rem!important;
+    margin-right:6px;
+}
+.content {
+    min-height:400px;
+}
+.sort{
+    position:relative;
+}
+.sort-div{
+    position:absolute;
+    right:10px;
+    top:30px;
+    background-color:white;
+    padding:8px;
+    z-index:999;
+    border-radius:.25rem;
+    font-size:.8rem;
+    color:#808080;
+    display:none;
+}
+.sort-div > .custom-control:last-child{
+    margin-bottom:0;
+}
+.custom-control-label::before,.custom-control-label::after{
+    top: .14rem;
+    left: -1.2rem;
+}
+.custom-control{
+    padding-left: 1.2rem;
+    min-height:initial;
+}
+
+.sort-div > .custom-control{
+    margin-bottom:6px;
+    transition:all .4s;
+}
+.sort-div > .custom-control label:hover{
+    cursor:help;
+    color:rgb(1, 72, 220);
+    transition:all .4s;
+    font-weight:bold;
+}
+.list{
+    position:relative;
+}
+.form-control:focus{
+    border-color: #125cf5!important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 104, 216, 0.25)!important;
+}
+.top{
+    position:fixed;
+    bottom:50px;
+    right:60px;
+    display:none;
+    background-color:white;
+}
+.modal-content{
+    border-radius:0;
+    border:none;
+    padding:10px;
+    min-height:280px;
+    flex-direction: column;
+    justify-content: center;
+}
+.modal-header{
+    padding:4px;
+    padding-bottom:14px;
+}
+.modal-footer{
+    padding-bottom:0;
+    padding-right:0;
+    border:none;
+}
+.modal-body{
+    border-bottom: 1px solid #dee2e6;
+}
+.movie-info{
+    border-right:1px solid #ddd;
+    font-size:.9rem;
+}
+.movie-info dd {
+    max-width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.movie-info dd:hover{
+    cursor:help;
+}
+.movie-info dd:last-child{
+    margin-bottom:0;
+}
+.downlink-div{
+    width: 100%;
+    background-color: #cfe0f3;
+    padding: 8px;
+    padding-left: 12px;
+    border-left: 4px solid #4676dc;
+    min-height: 40px;
+    margin-top: 12px;
+}
+.downlink-div a {
+    font-family:'Microsoft JhengHei';
+    font-size:.8rem;
+    color: #191919;
+}
+.copy{
+    cursor:copy;
+}
+
+/*登录页*/
+
+.title-line {
+    width: 980px;
+    height: 28px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+    .title-line .tit {
+        height: 54px;
+        line-height: 54px;
+        margin: 0 auto;
+        padding: 0 20px;
+        color: #fff;
+        background: #e5e5e5;
+        text-align: center;
+        font-size: 38px;
+    }
+    .Form-box {
+    position:relative;
+    width:980px;
+    margin:0 auto;
+    }

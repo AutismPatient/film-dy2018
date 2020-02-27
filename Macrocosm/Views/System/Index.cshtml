@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewData["Title"] = "index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<style>
+        .bold{
+            font-weight:bold;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+        .font{
+            font-size:.8rem;
+        }
+    </style>
+
+<div class="block-header">
+    <h2>工作台趋势 <small>Workbench trend</small></h2>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box hover-zoom-effect">
+            <div class="icon bg-teal">
+                <i class="material-icons">equalizer</i>
+            </div>
+            <div class="content video">
+                <div class="text">总资源</div>
+                <div class="number">- - -</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box hover-zoom-effect">
+            <div class="icon bg-blue">
+                <i class="material-icons">devices</i>
+            </div>
+            <div class="content day7">
+                <div class="text">近7天增长</div>
+                <div class="number">- - -</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box hover-zoom-effect">
+            <div class="icon bg-light-blue">
+                <i class="material-icons">access_alarm</i>
+            </div>
+            <div class="content IPCount">
+                <div class="text">总访问次数</div>
+                <div class="number">- - -</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box hover-zoom-effect">
+            <div class="icon bg-cyan">
+                <i class="material-icons">gps_fixed</i>
+            </div>
+            <div class="content AdminCount">
+                <div class="text">管理员数量</div>
+                <div class="number">- - -</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    近7天发布的资源
+                </h2>
+                <ul class="header-dropdown m-r--5" style="top:0px;">
+                    <li class="dropdown">
+                        <button type="button" style="top:14px" class="btn btn-link waves-effect" data-dismiss="modal">刷新数据</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <table class="table table-bordered table-striped table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>上映时间</th>
+                            <th>标签</th>
+                            <th>入库时间</th>
+                            <th>资源原始链接</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        count();
+        var table = $('.table').DataTable({
+            bFilter: false,
+            bSort: false,
+            bInfo: false,
+            ajax: {
+                url: "/system/movies",
+                dataSrc: "data",
+                dataType: "JSON",
+            },
+            columns: [
+                {
+                    data: 'title',
+                },
+                {
+                    data: 'releaseTime',
+                },
+                {
+                    data: 'tags',
+                },
+                {
+                    data: 'dateLine',
+                    render: function (data, type, row) {
+                        var d = new Date(data * 1000);
+                        var date = (d.getFullYear()) + "-" +
+                            (d.getMonth() + 1) + "-" +
+                            (d.getDate()) + " " +
+                            (d.getHours()) + ":" +
+                            (d.getMinutes()) + ":" +
+                            (d.getSeconds());
+                        return date;
+                    }
+                },
+                {
+                    data: 'movieLink',
+                },
+            ],
+            columnDefs: [
+                { className: "font", targets: "_all" },
+                { className: "bold", targets: 0 },
+            ]
+        });
+        $(".header button").click(function () {
+            table.ajax.reload();
+            nof("alert-success", "刷新数据成功");
+        });
+    })
+    function count() {
+        $.ajax({
+            async: true,
+            url: "/system/count",
+            type: "get",
+            dataType: 'json',
+            success: function (data) {
+                var ret = data.data;
+                $(".video > .number").text(ret.video);
+                $(".day7 > .number").text(ret.day7);
+                $(".IPCount > .number").text(ret.ipCount);
+                $(".AdminCount > .number").text(ret.adminCount);
+            },
+            timeout: 20000,
+            error: function (data) {
+                nof("alert-danger", "request error.");
+            }
+        });
+    }
+</script>

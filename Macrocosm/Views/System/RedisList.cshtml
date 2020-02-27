@@ -1,0 +1,78 @@
+﻿@using Macrocosm.Tool
+@model ResultModel
+@{
+    ViewData["Title"] = "RedisList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<ol class="breadcrumb pl-0">
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">home</i> Home
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action("index","system")">
+            <i class="material-icons">library_books</i> 工作台
+        </a>
+    </li>
+    <li class="active">
+        <i class="material-icons">archive</i> Redis 缓存
+    </li>
+</ol>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="header">
+                <h2>缓存数据</h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="@Url.Action("RedisList","system")" class="waves-effect waves-block">刷新</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+                <div class="table-responsive">
+                    <table class="table table-hover dashboard-task-infos">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th style="max-width:200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">缓存值</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var key in (Model.Data as List<RedisKeyModel>))
+                            {
+                                <tr>
+                                    <td>@key.Id</td>
+                                    <td style="max-width:200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">@key.Value</td>
+                                    <td>
+                                        <a href="@Url.Action("RedisDelete","system",new { key = key.Id,page = Model.Count,page_size = Model.PageSize })" class="btn bg-pink btn-block btn-xs waves-effect">
+                                            <i class="material-icons">warning</i> 删除
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous ">
+                            <a href="@Url.Action("RedisList","system",new {page = Model.Count - 1 })" @(Model.Count <= 1 ? "style=pointer-events:none;" : "") class="waves-effect"><span aria-hidden="true">←</span> Older</a>
+                        </li>
+                        <li class="next">
+                            <a href="@Url.Action("RedisList","system",new {page = Model.Count + 1 })" @(Model.Count < Model.PageSize ? "style=pointer-events:none;" : "") class="waves-effect">Newer <span aria-hidden="true">→</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
