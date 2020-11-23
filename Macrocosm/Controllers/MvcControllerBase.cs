@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Macrocosm.Controllers
 {
-    public class MvcControllerBase:Controller
+    public interface IMvcControllerBase
     {
-        public MvcControllerBase()
-        {
-
-        }
+        Task<IActionResult> GetSingle();
+        Task<IActionResult> GetAll();
     }
 }

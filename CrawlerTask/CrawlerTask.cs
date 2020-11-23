@@ -9,6 +9,7 @@ using Dapper;
 using System.Linq;
 using System.Threading;
 using AngleSharp.Io;
+using Google.Protobuf.WellKnownTypes;
 
 namespace CrawlerTask
 {
@@ -17,8 +18,8 @@ namespace CrawlerTask
     /// </summary>
     public class CrawlerTask
     {
-        public static ConfigHelper configHelper = new ConfigHelper();
-        public static Logger<CrawlerTask> Logger = new Logger<CrawlerTask>();
+        private static ConfigHelper configHelper = new ConfigHelper();
+        private static Logger<CrawlerTask> Logger = new Logger<CrawlerTask>();
         private static MySqlConnection MySQL = new MySQLHelper().MySql;
         private IEnumerable<System_Config> Config;
         public CrawlerTask()
@@ -56,8 +57,8 @@ namespace CrawlerTask
             var Models = new Model.RetModel();
             float count = 0;
             int offset = 0;
-            menu = Config.FirstOrDefault(x=>x.Key == "menu").Value;
-            isNext = bool.Parse(Config.FirstOrDefault(x => x.Key == "IsNext").Value);
+            menu = Config.FirstOrDefault(x=>x.Key == "menu")?.Value;
+            isNext = bool.Parse(Config.FirstOrDefault(x => x.Key == "IsNext")?.Value ?? string.Empty);
             foreach (var k in cont)
             {
                 if (offset > 10)
@@ -273,7 +274,7 @@ namespace CrawlerTask
         /// 获取当前时间戳
         /// </summary>
         /// <returns></returns>
-        public long GetTimeStamp()
+        private long GetTimeStamp()
         {
             long ts = (DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
             return ts;

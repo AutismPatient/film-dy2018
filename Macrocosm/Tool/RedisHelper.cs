@@ -13,16 +13,16 @@ namespace Macrocosm.Tool
     /// </summary>
     public class RedisHelper : IDisposable
     {
-        private string _connectionString; //连接字符串
-        private string _instanceName; //实例名称
-        private int _defaultDB; //默认数据库
-        private ConcurrentDictionary<string, ConnectionMultiplexer> _connections;
-        public IDatabase Database { get; set; }
-        public RedisHelper(string connectionString, string instanceName, int defaultDB = 0)
+        private readonly string _connectionString; //连接字符串
+        private readonly string _instanceName; //实例名称
+        private readonly int _defaultDB; //默认数据库
+        private readonly ConcurrentDictionary<string, ConnectionMultiplexer> _connections;
+        public IDatabase Database { get; private set; }
+        public RedisHelper(string connectionString, string instanceName, int defaultDb = 0)
         {
             _connectionString = connectionString;
             _instanceName = instanceName;
-            _defaultDB = defaultDB;
+            _defaultDB = defaultDb;
             _connections = new ConcurrentDictionary<string, ConnectionMultiplexer>();
             Database = GetDatabase();
         }
@@ -39,10 +39,8 @@ namespace Macrocosm.Tool
         /// <summary>
         /// 获取数据库
         /// </summary>
-        /// <param name="configName"></param>
-        /// <param name="db">默认为0：优先代码的db配置，其次config中的配置</param>
         /// <returns></returns>
-        public IDatabase GetDatabase()
+        private IDatabase GetDatabase()
         {
             return GetConnect().GetDatabase(_defaultDB);
         }
@@ -52,15 +50,16 @@ namespace Macrocosm.Tool
             var confOption = ConfigurationOptions.Parse(_connectionString);
             return GetConnect().GetServer(confOption.EndPoints[endPointsIndex]);
         }
+
         /// <summary>
         /// 获取库中所有键
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="page_size"></param>
+        /// <param name="offset"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
-        public ICollection<RedisKey> GetAllKeys(int offset = 0, int page_size = 10)
+        public ICollection<RedisKey> GetAllKeys(int offset = 0, int pageSize = 10)
         {
-            return GetServer().Keys(_defaultDB, pageSize: page_size,pageOffset: offset).ToList();
+            return GetServer().Keys(_defaultDB, pageSize: pageSize,pageOffset: offset).ToList();
         }
         public ISubscriber GetSubscriber(string configName = null)
         {

@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\team\\GraduationTeam\\Macrocosm\\Macrocosm.csproj": {}
+    "D:\\Users\\Administrator\\worker\\tfs-work\\film-dy2018\\Macrocosm\\Macrocosm.csproj": {}
   },
   "projects": {
-    "E:\\team\\GraduationTeam\\Macrocosm\\Macrocosm.csproj": {
+    "D:\\Users\\Administrator\\worker\\tfs-work\\film-dy2018\\Macrocosm\\Macrocosm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\team\\GraduationTeam\\Macrocosm\\Macrocosm.csproj",
+        "projectUniqueName": "D:\\Users\\Administrator\\worker\\tfs-work\\film-dy2018\\Macrocosm\\Macrocosm.csproj",
         "projectName": "Macrocosm",
-        "projectPath": "E:\\team\\GraduationTeam\\Macrocosm\\Macrocosm.csproj",
-        "packagesPath": "C:\\Users\\mzy\\.nuget\\packages\\",
-        "outputPath": "E:\\team\\GraduationTeam\\Macrocosm\\obj\\",
+        "projectPath": "D:\\Users\\Administrator\\worker\\tfs-work\\film-dy2018\\Macrocosm\\Macrocosm.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\Administrator\\worker\\tfs-work\\film-dy2018\\Macrocosm\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mzy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -26,6 +30,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +42,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -95,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Macrocosm
 {
-    public class Program
+    class Program
     {
         public static void Main(string[] args)
         {
@@ -26,7 +26,7 @@ namespace Macrocosm
                     context.Database.EnsureCreated();
                     logger = services.GetRequiredService<ILogger<Program>>();
                 }
-                Console.WriteLine($"[{DateTime.Now.ToString()}]服务启动成功");
+                Console.WriteLine($"[{DateTime.Now:s}]服务启动成功");
                 host.Run();
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace Macrocosm
         /// </summary>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

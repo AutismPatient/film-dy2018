@@ -96,7 +96,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         count();
-        var table = $('.table').DataTable({
+        const table = $('.table').DataTable({
             bFilter: false,
             bSort: false,
             bInfo: false,
@@ -118,8 +118,8 @@
                 {
                     data: 'dateLine',
                     render: function (data, type, row) {
-                        var d = new Date(data * 1000);
-                        var date = (d.getFullYear()) + "-" +
+                        const d = new Date(data * 1000);
+                        const date = (d.getFullYear()) + "-" +
                             (d.getMonth() + 1) + "-" +
                             (d.getDate()) + " " +
                             (d.getHours()) + ":" +
@@ -149,7 +149,7 @@
             type: "get",
             dataType: 'json',
             success: function (data) {
-                var ret = data.data;
+                const ret = data.data;
                 $(".video > .number").text(ret.video);
                 $(".day7 > .number").text(ret.day7);
                 $(".IPCount > .number").text(ret.ipCount);

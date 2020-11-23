@@ -14,7 +14,7 @@ namespace Macrocosm.Controllers
             return View();
         }
         [SystemFiltercs]
-        public IActionResult ALL()
+        public IActionResult All()
         {
             return View();
         }

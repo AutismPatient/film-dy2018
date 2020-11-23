@@ -19,13 +19,13 @@ namespace Macrocosm.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
-        private readonly RedisHelper redis;
-        private readonly SqlContext Context;
-        public MovieController(IMovieService movieService, RedisHelper _redis, SqlContext _context)
+        private readonly RedisHelper _redis;
+        private readonly SqlContext _context;
+        public MovieController(IMovieService movieService, RedisHelper redis, SqlContext context)
         {
             _movieService = movieService;
-            redis = _redis;
-            Context = _context;
+            this._redis = redis;
+            this._context = context;
         }
         [Route("movies")]
         public async Task<IActionResult> Index(MovieParameter parameter)
@@ -78,7 +78,7 @@ namespace Macrocosm.Controllers
                     var reload = HttpContext.Request.Cookies.FirstOrDefault(x => x.Key == Const.DefaultSessionName);
                     if(reload.Key != null)
                     {
-                        if(redis.Database.KeyExists(reload.Value))
+                        if(_redis.Database.KeyExists(reload.Value))
                         {
                             return Json(new ResultModel
                             {
@@ -91,7 +91,7 @@ namespace Macrocosm.Controllers
                     string tokenVal = Guid.NewGuid().ToString("N");
                     HttpContext.Response.Cookies.Append(Const.DefaultTokenName, tokenVal, opt);
                     HttpContext.Response.Cookies.Append(Const.DefaultSessionName, sessionVal, opt);
-                    await redis.Database.StringSetAsync(sessionVal, tokenVal, exp);
+                    await _redis.Database.StringSetAsync(sessionVal, tokenVal, exp);
                     HttpContext.Response.Cookies.Append(Const.DefaultMemberName, user.Id.ToString(), opt);
                     return Json(new ResultModel
                     {
@@ -135,7 +135,7 @@ namespace Macrocosm.Controllers
                     StatusCode = 500
                 });
             }
-            var user = await Context.System_Users.FirstOrDefaultAsync(x=>x.Id == int.Parse(member.Value));
+            var user = await _context.System_Users.FirstOrDefaultAsync(x=>x.Id == int.Parse(member.Value));
             if(user == null)
             {
                 return Json(new ResultModel

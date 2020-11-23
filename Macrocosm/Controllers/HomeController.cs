@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Macrocosm.Controllers
 {
     [ServiceFilter(typeof(CommonFilter))]
-    public class HomeController : MvcControllerBase
+    public class HomeController : Controller,IMvcControllerBase
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IMovieService _movieService;
@@ -42,6 +43,16 @@ namespace Macrocosm.Controllers
         public IActionResult About()
         {
             return View();
+        }
+
+        public Task<IActionResult> GetSingle()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IActionResult> GetAll()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

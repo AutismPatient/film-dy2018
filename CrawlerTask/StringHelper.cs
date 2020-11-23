@@ -15,6 +15,7 @@ namespace CrawlerTask
         /// </summary>
         /// <param name="str"></param>
         /// <param name="field"></param>
+        /// <param name="moral"></param>
         /// <param name="isEnd"></param>
         /// <returns></returns>
         public static string GetValueByName(this string str, string field,string moral = "", bool isEnd = true)
@@ -25,7 +26,7 @@ namespace CrawlerTask
                 {
                     #region 过滤
                     str = Regex.Replace(str, @"\s", "");
-                    int index = str.IndexOf("【下载地址】");
+                    int index = str.IndexOf("【下载地址】", StringComparison.Ordinal);
                     if (index >= 0)
                     {
                         str = str.Substring(0, index).Trim();
@@ -40,13 +41,13 @@ namespace CrawlerTask
                     }
                     #endregion
                     
-                    index = str.IndexOf(filter + field);
+                    index = str.IndexOf(filter + field, StringComparison.Ordinal);
                     if (index <= 0)
                     {
                         if (!string.IsNullOrEmpty(moral))
                         {
                             field = moral;
-                            index = str.IndexOf(filter + field);
+                            index = str.IndexOf(filter + field, StringComparison.Ordinal);
                         }
                         if(index<0)
                         {
@@ -54,15 +55,15 @@ namespace CrawlerTask
                         }
                     }
                     string val = str.Substring(index).Replace("】", "").TrimStart(ch);
-                    index = val.IndexOf(field);
+                    index = val.IndexOf(field, StringComparison.Ordinal);
                     if (index >= 0)
                     {
                         if (isEnd)
                         {
-                            int lastIndex = val.IndexOf(filter);
+                            int lastIndex = val.IndexOf(filter, StringComparison.Ordinal);
                             if ( lastIndex < 0)
                             {
-                                lastIndex = val.IndexOf("简介");
+                                lastIndex = val.IndexOf("简介", StringComparison.Ordinal);
                             }
                             val = val.Substring(index, lastIndex < 0 ? index:lastIndex).Replace(field, "");
                         }

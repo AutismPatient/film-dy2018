@@ -16,17 +16,16 @@ namespace Macrocosm.Filter
     /// </summary>
     public class SystemFiltercs: ActionFilterAttribute
     {
-        private readonly RedisHelper redisHelper;
+        private readonly RedisHelper _redisHelper;
         public SystemFiltercs() { }
-        public SystemFiltercs(RedisHelper _redisHelper)
+        public SystemFiltercs(RedisHelper redisHelper)
         {
-            redisHelper = _redisHelper;
+            this._redisHelper = redisHelper;
         }
         /// <summary>
         /// 登录认证：将cookies存到redis里
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="next"></param>
         /// <returns></returns>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -42,8 +41,8 @@ namespace Macrocosm.Filter
             if (Token.Value == null || sessionID.Value == null || string.IsNullOrEmpty(sessionID.Value))
             {
                 string host = context.HttpContext.Request.Host.Host;
-                string Basepath = context.HttpContext.Request.Headers["Referer"].ToString();
-                if (!Basepath.Contains(host) && !string.IsNullOrEmpty(Basepath))
+                string classpath = context.HttpContext.Request.Headers["Referer"].ToString();
+                if (!classpath.Contains(host) && !string.IsNullOrEmpty(classpath))
                 {
                     context.Result = ResultMsg("The token is empty !");
                     context.HttpContext.Response.StatusCode = 403;
@@ -52,14 +51,13 @@ namespace Macrocosm.Filter
                 context.HttpContext.Response.Redirect("/Login/Login");
                 return ;
             }
-            string new_token = "";
-            if (redisHelper.Database.KeyExists(sessionID.Value) && redisHelper.Database.StringGet(sessionID.Value).ToString().Equals(Token.Value))
+            if (_redisHelper.Database.KeyExists(sessionID.Value) && _redisHelper.Database.StringGet(sessionID.Value).ToString().Equals(Token.Value))
             {
-                var val = redisHelper.Database.StringGet(sessionID.Value).ToString();
+                var val = _redisHelper.Database.StringGet(sessionID.Value).ToString();
                 if (val.Equals(Token.Value))
                 {
                     isPass = true;
-                    new_token = Guid.NewGuid().ToString("N");
+                    Guid.NewGuid().ToString("N");
                 }
             }
             if (!isPass)
@@ -73,7 +71,7 @@ namespace Macrocosm.Filter
         {
             base.OnResultExecuted(context);
         }
-        public JsonResult ResultMsg(string msg)
+        private JsonResult ResultMsg(string msg)
         {
             return new JsonResult(msg);
         }

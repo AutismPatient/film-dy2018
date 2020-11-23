@@ -37,8 +37,8 @@ namespace Macrocosm.Filter
                 context.Result = ResultMsg("request method is error!");
             }
             string host = context.HttpContext.Request.Host.Host;
-            string Basepath = context.HttpContext.Request.Headers["Host"].ToString();
-            if (!Basepath.Contains(host) || string.IsNullOrEmpty(Basepath))
+            string classpath = context.HttpContext.Request.Headers["Host"].ToString();
+            if (!classpath.Contains(host) || string.IsNullOrEmpty(classpath))
             {
                 context.Result = ResultMsg("Request error,You cannot connect to the server from outside.");
                 context.HttpContext.Response.StatusCode = 403;
@@ -58,7 +58,7 @@ namespace Macrocosm.Filter
         {
             return base.OnResultExecutionAsync(context, next);
         }
-        public JsonResult ResultMsg(string msg)
+        private JsonResult ResultMsg(string msg)
         {
             return new JsonResult(msg);
         }
