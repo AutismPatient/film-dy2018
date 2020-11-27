@@ -7,25 +7,31 @@ using System.Threading.Tasks;
 namespace CrawlerTask
 {
     /// <summary>
-    /// 公司配置
+    /// 系统配置
     /// </summary>
     [Table("system_config")]
-    public class System_Config
+    public abstract class SystemConfig
     {
+        protected SystemConfig(string value, string key)
+        {
+            Value = value;
+            Key = key;
+        }
+
         [Column("Id")]
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
         [Column("Desc")]
-        public virtual string Desc { get; set; }
+        public string Desc { get; set; }
         [Column("Key")]
-        public virtual string Key { get; set; }
+        public string Key { get; private set; }
         [Column("Value")]
-        public virtual string Value { get; set; }
+        public string Value { get; private set; }
         [Column("DateLine")]
-        public virtual int DateLine { get; set; }
+        public int DateLine { get; set; }
         [Column("DataType")]
-        public virtual string DataType { get; set; }
+        public string DataType { get; set; }
         [NotMapped]
-        public virtual string DateLineText { get; set; }
+        public string DateLineText { get; set; }
     }
     
 }

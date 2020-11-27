@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Macrocosm.Tool
 {
+    /// <summary>
+    /// 数据库上下文
+    /// </summary>
     public class SqlContext:DbContext
     {
         public SqlContext(DbContextOptions<SqlContext> options)

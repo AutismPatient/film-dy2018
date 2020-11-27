@@ -13,18 +13,30 @@ namespace Macrocosm
 {
     class Program
     {
+        private static ILogger logger;
+        
         public static void Main(string[] args)
         {
-            ILogger<Program> logger = default;
             try
             {
+
+                var loggerFactory = LoggerFactory.Create(builder =>
+                {
+                    builder
+                        .AddFilter("Microsoft", LogLevel.Warning)
+                        .AddFilter("System", LogLevel.Warning)
+                        .AddFilter("LoggingConsoleApp.Program", LogLevel.Debug)
+                        .AddConsole()
+                        .AddEventLog();
+                });
+                logger = loggerFactory.CreateLogger<Program>();
+
                 var host = CreateHostBuilder(args).Build();
                 using (var scope = host.Services.CreateScope())
                 {
                     var services = scope.ServiceProvider;
                     var context = services.GetRequiredService<SqlContext>();
                     context.Database.EnsureCreated();
-                    logger = services.GetRequiredService<ILogger<Program>>();
                 }
                 Console.WriteLine($"[{DateTime.Now:s}]服务启动成功");
                 host.Run();
@@ -42,6 +54,10 @@ namespace Macrocosm
         /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logger => {
+                    logger.AddConsole();
+                    logger.ClearProviders();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseUrls("http://*:8080", "https://*:8081");

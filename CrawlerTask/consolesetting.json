@@ -1,6 +1,6 @@
 {
   "Default": {
-    "RootUrl": "https://www.ygdy8.com/index.html"
+    "RootUrl": "https://www.ygdy8.com/index.html" // 爬取地址
   },
   "MySQL": { //数据库配置
     "Server": "localhost",

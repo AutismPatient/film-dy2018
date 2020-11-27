@@ -20,6 +20,10 @@ namespace Macrocosm.Controllers
             _movieService = movieService;
         }
 
+        public HomeController()
+        {
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Macrocosm.Tool
 {
     /// <summary>
-    /// 公司配置
+    /// 系统配置
     /// </summary>
     [Table("system_config")]
     public class System_Config

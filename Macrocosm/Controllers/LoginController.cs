@@ -9,6 +9,12 @@ namespace Macrocosm.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IMvcControllerBase controllerBase = new HomeController();
+
+        public LoginController()
+        {
+
+        }
         public IActionResult Login()
         {
             return View();

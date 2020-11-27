@@ -21,10 +21,10 @@ namespace CrawlerTask
         private static ConfigHelper configHelper = new ConfigHelper();
         private static Logger<CrawlerTask> Logger = new Logger<CrawlerTask>();
         private static MySqlConnection MySQL = new MySQLHelper().MySql;
-        private IEnumerable<System_Config> Config;
+        private IEnumerable<SystemConfig> Config;
         public CrawlerTask()
         {
-            Config = MySQL.Query<System_Config>($"SELECT * FROM System_Config");
+            Config = MySQL.Query<SystemConfig>($"SELECT * FROM System_Config");
         }
         /// <summary>
         /// 阳光电影采集任务

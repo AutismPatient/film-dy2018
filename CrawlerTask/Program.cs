@@ -47,14 +47,14 @@ namespace CrawlerTask
                 IJobDetail job = JobBuilder.Create<CrawlerJob>()
                     .WithIdentity(jobName, gropName)
                     .Build();
-                var Config = await MySQL.QueryFirstAsync<System_Config>("SELECT * FROM System_Config WHERE `Key`='timing'", null);
+                var Config = await MySQL.QueryFirstAsync<SystemConfig>("SELECT * FROM System_Config WHERE `Key`='timing'", null);
                 int time = int.Parse(Config.Value);
                 // 定义触发器 
                 ITrigger trigger = TriggerBuilder.Create()
                     .WithIdentity(tiggerName, gropName)
                     .StartNow()
                     .WithSimpleSchedule(x => x
-                        .WithIntervalInHours(time) 
+                        .WithIntervalInHours(time)
                         .RepeatForever())
                     .Build();
                 await scheduler.ScheduleJob(job, trigger);
@@ -72,10 +72,10 @@ namespace CrawlerTask
             public async Task Execute(IJobExecutionContext context)
             {
                 Console.WriteLine($"[{DateTime.Now.ToString()}] 定时任务开始执行");
-                var task = await new CrawlerTask().Dy2018Task(isNext:false);
+                var task = await new CrawlerTask().Dy2018Task(isNext: false);
                 Console.WriteLine(task.Message);
             }
         }
     }
-    
+
 }
