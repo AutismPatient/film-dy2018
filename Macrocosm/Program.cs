@@ -19,7 +19,6 @@ namespace Macrocosm
         {
             try
             {
-
                 var loggerFactory = LoggerFactory.Create(builder =>
                 {
                     builder
@@ -38,13 +37,12 @@ namespace Macrocosm
                     var context = services.GetRequiredService<SqlContext>();
                     context.Database.EnsureCreated();
                 }
-                Console.WriteLine($"[{DateTime.Now:s}]服务启动成功");
+                logger.LogCritical($"[{DateTime.Now:s}] --- Macrocosm Service started successfully");
                 host.Run();
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "An error occurred creating the DB.");
-                Console.WriteLine($"错误信息：[{ex.StackTrace}]->{ex.Message}");
+                logger.LogError(ex, "[{date}] --- An error occurred creating the DB.",DateTime.Now.ToShortTimeString());
             }
         }
         /// <summary>
@@ -55,7 +53,9 @@ namespace Macrocosm
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logger => {
-                    logger.AddConsole();
+                    logger.AddConsole(configure => {
+                        configure.TimestampFormat = "YYYY/MM/DD hh:ss";
+                    });
                     logger.ClearProviders();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>

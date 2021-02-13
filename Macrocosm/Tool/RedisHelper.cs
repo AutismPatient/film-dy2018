@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Macrocosm.Tool
 {
@@ -17,9 +18,15 @@ namespace Macrocosm.Tool
         private readonly string _instanceName; //实例名称
         private readonly int _defaultDB; //默认数据库
         private readonly ConcurrentDictionary<string, ConnectionMultiplexer> _connections;
+        private ILogger<RedisHelper> logger;
         public IDatabase Database { get; private set; }
+        public RedisHelper(ILogger<RedisHelper> _logger) : base()
+        {
+            logger = _logger;
+        }
         public RedisHelper(string connectionString, string instanceName, int defaultDb = 0)
         {
+            
             _connectionString = connectionString;
             _instanceName = instanceName;
             _defaultDB = defaultDb;
@@ -33,7 +40,15 @@ namespace Macrocosm.Tool
         /// <returns></returns>
         private ConnectionMultiplexer GetConnect()
         {
-            return _connections.GetOrAdd(_instanceName, p => ConnectionMultiplexer.Connect(_connectionString));
+            try
+            {
+                return _connections.GetOrAdd(_instanceName, p => ConnectionMultiplexer.Connect(_connectionString));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Redis Client {instanceName} remote connection error,{ex},at {stack}", _instanceName, ex.Message, ex.StackTrace);
+                throw;
+            }
         }
 
         /// <summary>
@@ -59,7 +74,7 @@ namespace Macrocosm.Tool
         /// <returns></returns>
         public ICollection<RedisKey> GetAllKeys(int offset = 0, int pageSize = 10)
         {
-            return GetServer().Keys(_defaultDB, pageSize: pageSize,pageOffset: offset).ToList();
+            return GetServer().Keys(_defaultDB, pageSize: pageSize, pageOffset: offset).ToList();
         }
         public ISubscriber GetSubscriber(string configName = null)
         {
@@ -98,7 +113,7 @@ namespace Macrocosm.Tool
         /// <param name="value"></param>
         /// <param name="span"></param>
         /// <returns></returns>
-        public async Task ListSetExp<T>(string key,List<T> value,TimeSpan span)
+        public async Task ListSetExp<T>(string key, List<T> value, TimeSpan span)
         {
             var model = JsonConvert.SerializeObject(value);
             _ = await Database.StringSetAsync(key, model, span);
@@ -122,9 +137,9 @@ namespace Macrocosm.Tool
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<List<T>> GetTAsync<T>(string key) 
+        public async Task<List<T>> GetTAsync<T>(string key)
         {
-            var vList =await Database.ListRangeAsync(key);
+            var vList = await Database.ListRangeAsync(key);
             List<T> result = new List<T>();
             foreach (var item in vList)
             {

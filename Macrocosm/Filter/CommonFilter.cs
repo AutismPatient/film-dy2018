@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Macrocosm.Tool;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Macrocosm.Filter
 {
@@ -15,9 +16,11 @@ namespace Macrocosm.Filter
     {
         public CommonFilter() { }
         public SqlContext Context;
-        public CommonFilter(SqlContext _context)
+        private ILogger<CommonFilter> logger;
+        public CommonFilter(SqlContext _context, ILogger<CommonFilter> _logger)
         {
             Context = _context;
+            logger = _logger;
         }
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
@@ -44,12 +47,16 @@ namespace Macrocosm.Filter
                 context.HttpContext.Response.StatusCode = 403;
                 await base.OnActionExecutionAsync(context, next);
             }
+            var now = DateTime.Now.GetTimeStamp();
             await Context.Action_Logs.AddAsync(new Action_logs {
                 Path = context.HttpContext.Request.Path,
-                DateLine = DateTime.Now.GetTimeStamp(),
+                DateLine = now,
                 ClientIP = context.HttpContext.Connection.RemoteIpAddress.ToString(),
                 Status = 1,
             });
+
+            logger?.LogInformation("PATH:{path},DATE:{date},CLIENTIP:{ip},STATUS:ok",context.HttpContext.Request.Path, now,context.HttpContext.Connection.RemoteIpAddress.ToString());
+            
             await Context.SaveChangesAsync();
 
             await base.OnActionExecutionAsync(context, next);
@@ -60,6 +67,7 @@ namespace Macrocosm.Filter
         }
         private JsonResult ResultMsg(string msg)
         {
+            logger?.LogError(msg);
             return new JsonResult(msg);
         }
     }

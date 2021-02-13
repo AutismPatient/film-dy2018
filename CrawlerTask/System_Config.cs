@@ -10,14 +10,8 @@ namespace CrawlerTask
     /// 系统配置
     /// </summary>
     [Table("system_config")]
-    public abstract class SystemConfig
+    public class SystemConfig
     {
-        protected SystemConfig(string value, string key)
-        {
-            Value = value;
-            Key = key;
-        }
-
         [Column("Id")]
         public int Id { get; set; }
         [Column("Desc")]
@@ -33,5 +27,5 @@ namespace CrawlerTask
         [NotMapped]
         public string DateLineText { get; set; }
     }
-    
+
 }
